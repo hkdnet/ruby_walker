@@ -1,0 +1,18 @@
+GIT
+  remote: https://github.com/hkdnet/ast_tools
+  revision: 82e95e4d2ee83d6bc962e0667985bcda651030f1
+  specs:
+    ast_tools (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ast_tools!
+
+BUNDLED WITH
+   1.16.2
