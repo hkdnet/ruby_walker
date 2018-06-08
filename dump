@@ -1,0 +1,31 @@
+###########################################################
+## Do NOT use this node dump for any purpose other than  ##
+## debug and research.  Compatibility is not guaranteed. ##
+###########################################################
+
+# @ NODE_SCOPE (line: 1, location: (1,0)-(1,10))
+# +- nd_tbl: (empty)
+# +- nd_args:
+# |   (null node)
+# +- nd_body:
+#     @ NODE_FCALL (line: 1, location: (1,0)-(1,10))*
+#     +- nd_mid: :puts
+#     +- nd_args:
+#         @ NODE_ARRAY (line: 1, location: (1,5)-(1,10))
+#         +- nd_alen: 1
+#         +- nd_head:
+#         |   @ NODE_OPCALL (line: 1, location: (1,5)-(1,10))
+#         |   +- nd_mid: :+
+#         |   +- nd_recv:
+#         |   |   @ NODE_LIT (line: 1, location: (1,5)-(1,6))
+#         |   |   +- nd_lit: 1
+#         |   +- nd_args:
+#         |       @ NODE_ARRAY (line: 1, location: (1,9)-(1,10))
+#         |       +- nd_alen: 1
+#         |       +- nd_head:
+#         |       |   @ NODE_LIT (line: 1, location: (1,9)-(1,10))
+#         |       |   +- nd_lit: 2
+#         |       +- nd_next:
+#         |           (null node)
+#         +- nd_next:
+#             (null node)
