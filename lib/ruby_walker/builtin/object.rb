@@ -1,8 +1,11 @@
 require_relative 'basic_object'
+require_relative 'kernel'
 
 module RubyWalker
   module Builtin
     class Object < ::RubyWalker::Builtin::BasicObject
+      include ::RubyWalker::Builtin::Kernel
+
       def send(name, *args, &blk)
         __send__(name, *args, &blk)
       end

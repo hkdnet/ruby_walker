@@ -1,4 +1,5 @@
 require_relative 'kernel'
+require_relative 'builtin/object'
 require_relative 'builtin/nil'
 require_relative 'builtin/true'
 require_relative 'builtin/false'
@@ -13,8 +14,8 @@ module RubyWalker
     FALSE = ::RubyWalker::Builtin::False.new(false)
     NIL = ::RubyWalker::Builtin::Nil.new(nil)
 
-    def initialize(stdout: STDOUT, stderr: STDERR)
-      @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
+    def initialize
+      @main = ::RubyWalker::Builtin::Object.new
     end
 
     def evaluate(node, environment)
@@ -40,9 +41,9 @@ module RubyWalker
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], environment)
-        # TODO self は常に Kernel とは限らない
-        if @kernel.respond_to?(mid)
-          return @kernel.public_send(mid, *args)
+        # TODO self は常に @main とは限らない
+        if @main.respond_to?(mid)
+          return @main.public_send(mid, *args)
         else
           raise "No such method: Kernel##{mid}"
         end
