@@ -8,11 +8,6 @@ require_relative 'builtin/symbol'
 
 module RubyWalker
   class Evaluator
-    # 即値
-    TRUE = ::RubyWalker::Builtin::True.new(true)
-    FALSE = ::RubyWalker::Builtin::False.new(false)
-    NIL = ::RubyWalker::Builtin::Nil.new(nil)
-
     def initialize
       @main = ::RubyWalker::Builtin::Object.new
     end
@@ -32,7 +27,7 @@ module RubyWalker
       when 'NODE_IF'
         cond, t, f = node.children
         c = evaluate(cond, environment)
-        unless c == FALSE
+        unless c == ::RubyWalker.world.false
           return evaluate(t, environment)
         else
           return evaluate(f, environment)
@@ -63,11 +58,11 @@ module RubyWalker
       when 'NODE_STR'
         return ::RubyWalker::Builtin::String.new(node.children.first)
       when 'NODE_NIL'
-        return NIL
+        return ::RubyWalker.world.nil
       when 'NODE_TRUE'
-        return TRUE
+        return ::RubyWalker.world.true
       when 'NODE_FALSE'
-        return FALSE
+        return ::RubyWalker.world.false
       when 'NODE_LASGN'
         name = node.children[0]
         val = evaluate(node.children[1], environment)
