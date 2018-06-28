@@ -14,8 +14,11 @@ module RubyWalker
         when 'NODE_FCALL'
           mid = node.children[0]
           args = evaluate(node.children[1], stack)
-          # TODO: send やめる
-          return send(mid, *args)
+          if @kernel.respond_to?(mid)
+            return @kernel.public_send(mid, *args)
+          else
+            raise "No such method: Kernel##{mid}"
+          end
         when 'NODE_ARRAY'
           return node.children[0..-2].map do |e|
             evaluate(e, [])
