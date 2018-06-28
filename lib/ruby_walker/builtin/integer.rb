@@ -1,8 +1,8 @@
-require_relative 'basic_object'
+require_relative 'object'
 
 module RubyWalker
   module Builtin
-    class Integer < ::RubyWalker::Builtin::BasicObject
+    class Integer < ::RubyWalker::Builtin::Object
       attr_reader :val
 
       def initialize(val)

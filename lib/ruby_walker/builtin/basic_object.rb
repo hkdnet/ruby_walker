@@ -20,10 +20,6 @@ module RubyWalker
         self.class.instance_methods.include?(name)
       end
 
-      def class
-        Kernel.send(:raise, ::NotImplementedError)
-      end
-
       def call(mid, *args)
         if respond_to?(mid)
           self.__send__(mid, *args)

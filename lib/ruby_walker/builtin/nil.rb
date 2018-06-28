@@ -1,8 +1,8 @@
-require_relative 'basic_object'
+require_relative 'object'
 
 module RubyWalker
   module Builtin
-    class Nil < ::RubyWalker::Builtin::BasicObject
+    class Nil < ::RubyWalker::Builtin::Object
       def initialize(val)
         @val = val
       end

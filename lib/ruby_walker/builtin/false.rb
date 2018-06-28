@@ -1,8 +1,8 @@
-require_relative 'basic_object'
+require_relative 'object'
 
 module RubyWalker
   module Builtin
-    class False < ::RubyWalker::Builtin::BasicObject
+    class False < ::RubyWalker::Builtin::Object
       def initialize(val)
         @val = val
       end
