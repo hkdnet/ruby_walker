@@ -1,4 +1,5 @@
 require_relative 'kernel'
+require_relative 'true'
 require_relative 'integer'
 
 module RubyWalker
@@ -42,6 +43,8 @@ module RubyWalker
         return recv.call(mid, *args)
       when 'NODE_LIT'
         return to_literal(node.children.first)
+      when 'NODE_TRUE'
+        return ::RubyWalker::True.new(true)
       when 'NODE_LASGN'
         name = node.children[0]
         val = evaluate(node.children[1], environment)
