@@ -7,7 +7,8 @@ class RubyWalker
 
   def walk
     ast = RubyVM::AST.parse_file(@filepath)
-    p execute(ast, [])
+    result = execute(ast, [])
+    debug result
   end
 
   def execute(node, stack)
@@ -18,7 +19,7 @@ class RubyWalker
     when 'NODE_FCALL'
       mid = node.children[0]
       args = execute(node.children[1], stack)
-      return [:called, :self, mid, args]
+      return send(mid, *args)
     when 'NODE_ARRAY'
       return node.children[0..-2].map do |e|
         execute(e, [])
@@ -30,13 +31,18 @@ class RubyWalker
       recv = execute(node.children[0], [])
       mid = node.children[1]
       args = execute(node.children[2], [])
-      return [:called, recv, mid, args]
+      return recv.send(mid, *args)
     when 'NODE_LIT'
       return node.children.first
     else
       binding.pry
       raise "Unknown node type #{node.type}"
     end
+  end
+
+  def debug(*args)
+    puts "debug: "
+    args.each { |e| p e }
   end
 end
 
