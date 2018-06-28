@@ -13,6 +13,7 @@ module RubyWalker
         @stdout.write(arg.to_s)
         @stdout.write("\n")
       end
+      nil
     end
   end
 end
