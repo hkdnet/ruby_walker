@@ -10,12 +10,14 @@ GEM
     pry-byebug (3.6.0)
       byebug (~> 10.0)
       pry (~> 0.10)
+    rake (12.3.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   pry-byebug
+  rake
 
 BUNDLED WITH
    1.16.2
