@@ -18,3 +18,5 @@ puts :foo
 def foo
   puts :foo
 end
+
+foo
