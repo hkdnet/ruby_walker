@@ -14,3 +14,7 @@ end
 
 puts nil
 puts :foo
+
+def foo
+  puts :foo
+end
