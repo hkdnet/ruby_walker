@@ -11,3 +11,5 @@ if b
 else
   puts "falsy"
 end
+
+puts nil

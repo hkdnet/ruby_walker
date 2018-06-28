@@ -1,4 +1,5 @@
 require_relative 'kernel'
+require_relative 'nil'
 require_relative 'true'
 require_relative 'false'
 require_relative 'integer'
@@ -9,6 +10,7 @@ module RubyWalker
     # 即値
     TRUE = ::RubyWalker::True.new(true)
     FALSE = ::RubyWalker::False.new(false)
+    NIL = ::RubyWalker::Nil.new(nil)
 
     def initialize(stdout: STDOUT, stderr: STDERR)
       @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
@@ -59,6 +61,8 @@ module RubyWalker
         return to_literal(node.children.first)
       when 'NODE_STR'
         return ::RubyWalker::String.new(node.children.first)
+      when 'NODE_NIL'
+        return NIL
       when 'NODE_TRUE'
         return TRUE
       when 'NODE_FALSE'
