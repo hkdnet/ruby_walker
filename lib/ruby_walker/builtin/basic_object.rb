@@ -6,6 +6,13 @@ module RubyWalker
     class BasicObject < ::BasicObject
       class << self
         # @override
+        def include(mod)
+          super.tap do
+            mod.instance_methods.each { |e| instance_methods << e }
+          end
+        end
+
+        # @override
         def method_added(name)
           instance_methods << name
           super

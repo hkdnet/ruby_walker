@@ -3,16 +3,12 @@ require_relative 'basic_object'
 module RubyWalker
   module Builtin
     module Kernel
-      class << self
-        # @override
-        def method_added(name)
-          instance_methods << name
-          super
+      def puts(*args)
+        args.each do |e|
+          RubyWalker.world.stdout.write(e)
+          RubyWalker.world.stdout.write("\n")
         end
-
-        def instance_methods
-          @instance_methods ||= Set.new
-        end
+        nil
       end
     end
   end

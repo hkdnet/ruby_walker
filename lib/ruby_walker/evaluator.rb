@@ -43,7 +43,7 @@ module RubyWalker
         args = evaluate(node.children[1], environment)
         # TODO self は常に @main とは限らない
         if @main.respond_to?(mid)
-          return @main.public_send(mid, *args)
+          return @main.send(mid, *args)
         else
           raise "No such method: Kernel##{mid}"
         end
