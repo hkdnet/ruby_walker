@@ -76,8 +76,9 @@ module RubyWalker
           raise "No such local variable #{name}"
         end
       when 'NODE_DEFN'
-        # NODE_DEFN から mid がとれないのでいったんやめ
-        raise "unsupported"
+        mid, body = node.children
+        environment.add_method(mid, body)
+        return ::RubyWalker::Builtin::Symbol.new(mid)
       else
         raise "Unknown node type #{node.type}"
       end

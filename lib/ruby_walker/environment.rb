@@ -2,6 +2,7 @@ module RubyWalker
   class Environment
     def initialize
       @local_variables = {}
+      @methods = {}
     end
 
     def assign_local_variable(name, val)
@@ -14,6 +15,10 @@ module RubyWalker
 
     def local_variable_defined?(name)
       @local_variables.key?(name)
+    end
+
+    def add_method(name, node)
+      @methods[name] = node
     end
   end
 end
