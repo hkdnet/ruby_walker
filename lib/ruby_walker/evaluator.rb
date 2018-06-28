@@ -1,17 +1,17 @@
 require_relative 'kernel'
-require_relative 'nil'
-require_relative 'true'
-require_relative 'false'
-require_relative 'integer'
-require_relative 'string'
-require_relative 'symbol'
+require_relative 'builtin/nil'
+require_relative 'builtin/true'
+require_relative 'builtin/false'
+require_relative 'builtin/integer'
+require_relative 'builtin/string'
+require_relative 'builtin/symbol'
 
 module RubyWalker
   class Evaluator
     # 即値
-    TRUE = ::RubyWalker::True.new(true)
-    FALSE = ::RubyWalker::False.new(false)
-    NIL = ::RubyWalker::Nil.new(nil)
+    TRUE = ::RubyWalker::Builtin::True.new(true)
+    FALSE = ::RubyWalker::Builtin::False.new(false)
+    NIL = ::RubyWalker::Builtin::Nil.new(nil)
 
     def initialize(stdout: STDOUT, stderr: STDERR)
       @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
@@ -61,7 +61,7 @@ module RubyWalker
       when 'NODE_LIT'
         return to_literal(node.children.first)
       when 'NODE_STR'
-        return ::RubyWalker::String.new(node.children.first)
+        return ::RubyWalker::Builtin::String.new(node.children.first)
       when 'NODE_NIL'
         return NIL
       when 'NODE_TRUE'
@@ -93,9 +93,9 @@ module RubyWalker
     def to_literal(val)
       case val
       when ::Integer
-        ::RubyWalker::Integer.new(val)
+        ::RubyWalker::Builtin::Integer.new(val)
       when ::Symbol
-        ::RubyWalker::Symbol.new(val)
+        ::RubyWalker::Builtin::Symbol.new(val)
       else
         raise "Unknown literal type: #{val.inspect}"
       end
