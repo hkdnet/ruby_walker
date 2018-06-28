@@ -1,5 +1,6 @@
 require_relative 'kernel'
 require_relative 'true'
+require_relative 'false'
 require_relative 'integer'
 require_relative 'string'
 
@@ -52,6 +53,8 @@ module RubyWalker
         return ::RubyWalker::String.new(node.children.first)
       when 'NODE_TRUE'
         return ::RubyWalker::True.new(true)
+      when 'NODE_FALSE'
+        return ::RubyWalker::False.new(false)
       when 'NODE_LASGN'
         name = node.children[0]
         val = evaluate(node.children[1], environment)
