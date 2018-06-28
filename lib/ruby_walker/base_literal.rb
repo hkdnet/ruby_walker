@@ -2,7 +2,7 @@ require 'set'
 
 module RubyWalker
   # 不必要なメソッドを定義したくないので BasicObject を継承して自前で定義することにする
-  class BaseLiteral < BasicObject
+  class BaseLiteral < ::BasicObject
     class << self
       # @override
       def method_added(name)
