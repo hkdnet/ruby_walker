@@ -1,7 +1,7 @@
-require_relative 'base_literal'
+require_relative 'basic_object'
 
 module RubyWalker
-  class False < BaseLiteral
+  class False < BasicObject
     def initialize(val)
       @val = val
     end

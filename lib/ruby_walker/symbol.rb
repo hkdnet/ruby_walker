@@ -1,7 +1,7 @@
-require_relative 'base_literal'
+require_relative 'basic_object'
 
 module RubyWalker
-  class Symbol < RubyWalker::BaseLiteral
+  class Symbol < RubyWalker::BasicObject
     attr_reader :val
 
     def initialize(val)
