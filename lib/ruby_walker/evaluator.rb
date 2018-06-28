@@ -4,6 +4,7 @@ require_relative 'true'
 require_relative 'false'
 require_relative 'integer'
 require_relative 'string'
+require_relative 'symbol'
 
 module RubyWalker
   class Evaluator
@@ -93,6 +94,8 @@ module RubyWalker
       case val
       when ::Integer
         RubyWalker::Integer.new(val)
+      when ::Symbol
+        ::RubyWalker::Symbol.new(val)
       else
         raise "Unknown literal type: #{val.inspect}"
       end
