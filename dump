@@ -3,37 +3,41 @@
 ## debug and research.  Compatibility is not guaranteed. ##
 ###########################################################
 
-# @ NODE_SCOPE (line: 1, location: (1,0)-(2,6))
+# @ NODE_SCOPE (line: 1, location: (1,0)-(6,3))
 # +- nd_tbl: :a
 # +- nd_args:
 # |   (null node)
 # +- nd_body:
-#     @ NODE_BLOCK (line: 1, location: (1,0)-(2,6))
+#     @ NODE_BLOCK (line: 1, location: (1,0)-(6,3))
 #     +- nd_head (1):
-#     |   @ NODE_DASGN_CURR (line: 1, location: (1,0)-(1,9))*
+#     |   @ NODE_DASGN_CURR (line: 1, location: (1,0)-(1,8))*
 #     |   +- nd_vid: :a
 #     |   +- nd_value:
-#     |       @ NODE_OPCALL (line: 1, location: (1,4)-(1,9))
-#     |       +- nd_mid: :+
-#     |       +- nd_recv:
-#     |       |   @ NODE_LIT (line: 1, location: (1,4)-(1,5))
-#     |       |   +- nd_lit: 1
-#     |       +- nd_args:
-#     |           @ NODE_ARRAY (line: 1, location: (1,8)-(1,9))
-#     |           +- nd_alen: 1
-#     |           +- nd_head:
-#     |           |   @ NODE_LIT (line: 1, location: (1,8)-(1,9))
-#     |           |   +- nd_lit: 2
-#     |           +- nd_next:
-#     |               (null node)
+#     |       @ NODE_TRUE (line: 1, location: (1,4)-(1,8))
 #     +- nd_head (2):
-#         @ NODE_FCALL (line: 2, location: (2,0)-(2,6))*
-#         +- nd_mid: :puts
-#         +- nd_args:
-#             @ NODE_ARRAY (line: 2, location: (2,5)-(2,6))
-#             +- nd_alen: 1
-#             +- nd_head:
-#             |   @ NODE_DVAR (line: 2, location: (2,5)-(2,6))
-#             |   +- nd_vid: :a
-#             +- nd_next:
-#                 (null node)
+#         @ NODE_IF (line: 2, location: (2,0)-(6,3))*
+#         +- nd_cond:
+#         |   @ NODE_DVAR (line: 2, location: (2,3)-(2,4))
+#         |   +- nd_vid: :a
+#         +- nd_body:
+#         |   @ NODE_FCALL (line: 3, location: (3,2)-(3,15))*
+#         |   +- nd_mid: :puts
+#         |   +- nd_args:
+#         |       @ NODE_ARRAY (line: 3, location: (3,7)-(3,15))
+#         |       +- nd_alen: 1
+#         |       +- nd_head:
+#         |       |   @ NODE_STR (line: 3, location: (3,7)-(3,15))
+#         |       |   +- nd_lit: "truthy"
+#         |       +- nd_next:
+#         |           (null node)
+#         +- nd_else:
+#             @ NODE_FCALL (line: 5, location: (5,2)-(5,14))*
+#             +- nd_mid: :puts
+#             +- nd_args:
+#                 @ NODE_ARRAY (line: 5, location: (5,7)-(5,14))
+#                 +- nd_alen: 1
+#                 +- nd_head:
+#                 |   @ NODE_STR (line: 5, location: (5,7)-(5,14))
+#                 |   +- nd_lit: "falsy"
+#                 +- nd_next:
+#                     (null node)

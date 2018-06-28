@@ -1,2 +1,6 @@
-a = 1 + 2
-puts a
+a = true
+if a
+  puts "truthy"
+else
+  puts "falsy"
+end
