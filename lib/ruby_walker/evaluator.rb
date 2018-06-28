@@ -93,7 +93,7 @@ module RubyWalker
     def to_literal(val)
       case val
       when ::Integer
-        RubyWalker::Integer.new(val)
+        ::RubyWalker::Integer.new(val)
       when ::Symbol
         ::RubyWalker::Symbol.new(val)
       else
