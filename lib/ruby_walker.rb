@@ -1,6 +1,9 @@
+require 'logger'
+
 class RubyWalker
-  def initialize(file_path)
+  def initialize(file_path, logger: nil)
     @file_path = file_path
+    @logger = logger || Logger.new(STDOUT)
   end
 
   def walk
@@ -41,8 +44,11 @@ class RubyWalker
     end
   end
 
+  private
+
+  attr_reader :logger
+
   def debug(*args)
-    puts "debug: "
-    args.each { |e| p e }
+    logger.debug args
   end
 end
