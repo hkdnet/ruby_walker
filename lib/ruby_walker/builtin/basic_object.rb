@@ -21,7 +21,7 @@ module RubyWalker
       end
 
       def class
-        raise NotImplementedError
+        Kernel.send(:raise, ::NotImplementedError)
       end
 
       def call(mid, *args)
