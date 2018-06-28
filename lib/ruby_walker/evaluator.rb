@@ -1,4 +1,5 @@
 require_relative 'kernel'
+require_relative 'integer'
 
 module RubyWalker
   class Evaluator
@@ -34,10 +35,20 @@ module RubyWalker
           # TODO: send やめる
           return recv.send(mid, *args)
         when 'NODE_LIT'
-          # TODO: 自分でリテラルに対応するオブジェクトつくる
-          return node.children.first
+          return to_literal(node.children.first)
         else
           raise "Unknown node type #{node.type}"
+      end
+    end
+
+    private
+
+    def to_literal(val)
+      case val
+        when ::Integer
+          RubyWalker::Integer.new(val)
+        else
+          raise "Unknown literal type: #{val.inspect}"
       end
     end
   end
