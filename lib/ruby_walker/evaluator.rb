@@ -6,6 +6,10 @@ require_relative 'string'
 
 module RubyWalker
   class Evaluator
+    # 即値
+    TRUE = ::RubyWalker::True.new(true)
+    FALSE = ::RubyWalker::False.new(false)
+
     def initialize(stdout: STDOUT, stderr: STDERR)
       @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
     end
@@ -52,9 +56,9 @@ module RubyWalker
       when 'NODE_STR'
         return ::RubyWalker::String.new(node.children.first)
       when 'NODE_TRUE'
-        return ::RubyWalker::True.new(true)
+        return TRUE
       when 'NODE_FALSE'
-        return ::RubyWalker::False.new(false)
+        return FALSE
       when 'NODE_LASGN'
         name = node.children[0]
         val = evaluate(node.children[1], environment)
