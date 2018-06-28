@@ -12,6 +12,13 @@ module RubyWalker
       when 'NODE_SCOPE'
         # TODO 内容見る
         return evaluate(node.children[2], stack)
+      when 'NODE_BLOCK'
+        # TODO これだけじゃダメなケースありそう
+        ret = nil
+        node.children.each do |child_node|
+          ret = evaluate(child_node, [])
+        end
+        return ret
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], stack)
