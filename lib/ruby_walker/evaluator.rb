@@ -1,4 +1,3 @@
-require_relative 'kernel'
 require_relative 'builtin/object'
 require_relative 'builtin/nil'
 require_relative 'builtin/true'
