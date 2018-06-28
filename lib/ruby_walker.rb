@@ -1,10 +1,10 @@
 class RubyWalker
-  def initialize(filepath)
-    @filepath = filepath
+  def initialize(file_path)
+    @file_path = file_path
   end
 
   def walk
-    ast = RubyVM::AST.parse_file(@filepath)
+    ast = RubyVM::AST.parse_file(@file_path)
     result = execute(ast, [])
     debug result
   end
