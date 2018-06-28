@@ -8,7 +8,7 @@ module RubyWalker
           RubyWalker.world.stdout.write(e)
           RubyWalker.world.stdout.write("\n")
         end
-        nil
+        RubyWalker.world.nil
       end
     end
   end
