@@ -1,6 +1,7 @@
 require_relative 'kernel'
 require_relative 'true'
 require_relative 'integer'
+require_relative 'string'
 
 module RubyWalker
   class Evaluator
@@ -47,6 +48,8 @@ module RubyWalker
         return recv.call(mid, *args)
       when 'NODE_LIT'
         return to_literal(node.children.first)
+      when 'NODE_STR'
+        return ::RubyWalker::String.new(node.children.first)
       when 'NODE_TRUE'
         return ::RubyWalker::True.new(true)
       when 'NODE_LASGN'
