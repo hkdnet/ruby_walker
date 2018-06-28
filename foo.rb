@@ -13,7 +13,4 @@ else
 end
 
 puts nil
-
-def foo
-  puts :foo
-end
+puts :foo
