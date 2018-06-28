@@ -7,11 +7,11 @@ module RubyWalker
       @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
     end
 
-    def evaluate(node, stack)
+    def evaluate(node, environment)
       case node.type
       when 'NODE_SCOPE'
         # TODO 内容見る
-        return evaluate(node.children[2], stack)
+        return evaluate(node.children[2], environment)
       when 'NODE_BLOCK'
         # TODO これだけじゃダメなケースありそう
         ret = nil
@@ -21,7 +21,7 @@ module RubyWalker
         return ret
       when 'NODE_FCALL'
         mid = node.children[0]
-        args = evaluate(node.children[1], stack)
+        args = evaluate(node.children[1], environment)
         # TODO self は常に Kernel とは限らない
         if @kernel.respond_to?(mid)
           return @kernel.public_send(mid, *args)

@@ -1,4 +1,5 @@
 require_relative 'evaluator'
+require_relative 'environment'
 
 module RubyWalker
   class Walker
@@ -9,7 +10,7 @@ module RubyWalker
 
     def walk
       ast = RubyVM::AST.parse_file(@file_path)
-      @evaluator.evaluate(ast, [])
+      @evaluator.evaluate(ast, ::RubyWalker::Environment.new)
     end
   end
 end
