@@ -1,4 +1,7 @@
 require 'pry'
 require './lib/ruby_walker'
 
-RubyWalker.new('./foo.rb').walk
+result = RubyWalker::Walker.new('./foo.rb').walk
+
+puts "評価結果"
+p result
