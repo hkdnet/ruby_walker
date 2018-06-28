@@ -28,8 +28,12 @@ module RubyWalker
         return ret
       when 'NODE_IF'
         cond, t, f = node.children
-        # とりあえず true だけ
-        return evaluate(t, environment)
+        c = evaluate(cond, environment)
+        unless c == FALSE
+          return evaluate(t, environment)
+        else
+          return evaluate(f, environment)
+        end
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], environment)
