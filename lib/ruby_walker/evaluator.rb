@@ -16,7 +16,7 @@ module RubyWalker
         # TODO これだけじゃダメなケースありそう
         ret = nil
         node.children.each do |child_node|
-          ret = evaluate(child_node, [])
+          ret = evaluate(child_node, environment)
         end
         return ret
       when 'NODE_FCALL'
@@ -30,18 +30,30 @@ module RubyWalker
         end
       when 'NODE_ARRAY'
         return node.children[0..-2].map do |e|
-          evaluate(e, [])
+          evaluate(e, environment)
         end
       when 'NODE_OPCALL'
         unless node.children.size == 3
           raise 'opcall は要素3つだと思ってたけどそうじゃないかも'
         end
-        recv = evaluate(node.children[0], [])
+        recv = evaluate(node.children[0], environment)
         mid = node.children[1]
-        args = evaluate(node.children[2], [])
+        args = evaluate(node.children[2], environment)
         return recv.call(mid, *args)
       when 'NODE_LIT'
         return to_literal(node.children.first)
+      when 'NODE_LASGN'
+        name = node.children[0]
+        val = evaluate(node.children[1], environment)
+        environment.assign_local_variable(name, val)
+        return val
+      when 'NODE_LVAR'
+        name = node.children[0]
+        if environment.local_variable_defined?(name)
+          return environment.get_local_variable(name)
+        else
+          raise "No such local variable #{name}"
+        end
       else
         raise "Unknown node type #{node.type}"
       end
