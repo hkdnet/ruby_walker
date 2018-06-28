@@ -32,8 +32,11 @@ module RubyWalker
           recv = evaluate(node.children[0], [])
           mid = node.children[1]
           args = evaluate(node.children[2], [])
-          # TODO: send やめる
-          return recv.send(mid, *args)
+          if recv.respond_to?(mid)
+            return recv.public_send(mid, *args)
+          else
+            raise "No such method: #{recv.class}##{mid}"
+          end
         when 'NODE_LIT'
           return to_literal(node.children.first)
         else
