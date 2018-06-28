@@ -1,2 +1,2 @@
-puts 1 + 2
-puts 3
+a = 1 + 2
+puts a
