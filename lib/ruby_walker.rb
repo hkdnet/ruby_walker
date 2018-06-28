@@ -17,6 +17,7 @@ class RubyWalker
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], stack)
+        # TODO: send やめる
         return send(mid, *args)
       when 'NODE_ARRAY'
         return node.children[0..-2].map do |e|
@@ -29,8 +30,10 @@ class RubyWalker
         recv = evaluate(node.children[0], [])
         mid = node.children[1]
         args = evaluate(node.children[2], [])
+        # TODO: send やめる
         return recv.send(mid, *args)
       when 'NODE_LIT'
+        # TODO: 自分でリテラルに対応するオブジェクトつくる
         return node.children.first
       else
         binding.pry
