@@ -79,6 +79,9 @@ module RubyWalker
         else
           raise "No such local variable #{name}"
         end
+      when 'NODE_DEFN'
+        # NODE_DEFN から mid がとれないのでいったんやめ
+        raise "unsupported"
       else
         raise "Unknown node type #{node.type}"
       end
