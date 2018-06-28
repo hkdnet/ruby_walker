@@ -98,3 +98,5 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+require File.expand_path('../lib/ruby_walker', __dir__)
