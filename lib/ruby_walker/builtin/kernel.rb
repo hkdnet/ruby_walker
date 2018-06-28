@@ -5,7 +5,7 @@ module RubyWalker
     module Kernel
       def puts(*args)
         args.each do |e|
-          RubyWalker.world.stdout.write(e)
+          RubyWalker.world.stdout.write(e.rb_to_s)
           RubyWalker.world.stdout.write("\n")
         end
         RubyWalker.world.nil

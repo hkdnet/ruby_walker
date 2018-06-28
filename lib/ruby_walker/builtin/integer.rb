@@ -13,7 +13,7 @@ module RubyWalker
         ::RubyWalker::Builtin::Integer.new(val + other.val)
       end
 
-      def to_s
+      def rb_to_s
         val.to_s
       end
 

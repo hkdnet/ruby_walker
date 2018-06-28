@@ -11,7 +11,7 @@ module RubyWalker
         ::RubyWalker::Builtin::Nil
       end
 
-      def to_s
+      def rb_to_s
         ''
       end
     end

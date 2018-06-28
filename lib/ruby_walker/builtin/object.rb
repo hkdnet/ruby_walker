@@ -13,6 +13,14 @@ module RubyWalker
       def class
         ::RubyWalker::Builtin::Object
       end
+
+      def to_s
+        ::RubyWalker::Builtin::String.new(rb_to_s)
+      end
+
+      def rb_to_s
+        '#<Object>'
+      end
     end
   end
 end

@@ -11,7 +11,7 @@ module RubyWalker
         ::RubyWalker::Builtin::False
       end
 
-      def to_s
+      def rb_to_s
         'false'
       end
     end

@@ -9,7 +9,7 @@ module RubyWalker
         @val = val
       end
 
-      def to_s
+      def rb_to_s
         val.to_s
       end
 

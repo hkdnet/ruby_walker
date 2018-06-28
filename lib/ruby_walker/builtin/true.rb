@@ -11,7 +11,7 @@ module RubyWalker
         ::RubyWalker::Builtin::True
       end
 
-      def to_s
+      def rb_to_s
         'true'
       end
     end
