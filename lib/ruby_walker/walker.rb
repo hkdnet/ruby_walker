@@ -2,7 +2,7 @@ require_relative 'evaluator'
 
 module RubyWalker
   class Walker
-    def initialize(file_path, logger: nil)
+    def initialize(file_path)
       @file_path = file_path
       @evaluator = RubyWalker::Evaluator.new
     end
