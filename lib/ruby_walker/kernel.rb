@@ -3,9 +3,9 @@ module RubyWalker
     attr_reader :stdout
     attr_reader :stderr
 
-    def initialize
-      @stdout = StringIO.new
-      @stderr = StringIO.new
+    def initialize(stdout:, stderr:)
+      @stdout = stdout
+      @stderr = stderr
     end
 
     def puts(*args)

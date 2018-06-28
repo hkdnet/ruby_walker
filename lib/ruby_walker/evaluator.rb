@@ -2,6 +2,10 @@ require_relative 'kernel'
 
 module RubyWalker
   class Evaluator
+    def initialize(stdout: STDOUT, stderr: STDERR)
+      @kernel = RubyWalker::Kernel.new(stdout: stdout, stderr: stderr)
+    end
+
     def evaluate(node, stack)
       case node.type
         when 'NODE_SCOPE'
