@@ -14,6 +14,7 @@ module RubyWalker
         when 'NODE_FCALL'
           mid = node.children[0]
           args = evaluate(node.children[1], stack)
+          # TODO self は常に Kernel とは限らない
           if @kernel.respond_to?(mid)
             return @kernel.public_send(mid, *args)
           else
