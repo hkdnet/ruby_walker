@@ -63,9 +63,6 @@ module RubyWalker
           raise "not implemented"
         end
       when 'NODE_OPCALL'
-        unless node.children.size == 3
-          raise 'opcall は要素3つだと思ってたけどそうじゃないかも'
-        end
         recv = evaluate(node.children[0], environment)
         mid = node.children[1]
         args = evaluate(node.children[2], environment)
