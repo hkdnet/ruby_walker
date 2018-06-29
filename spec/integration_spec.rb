@@ -1,5 +1,5 @@
 RSpec.describe 'integration' do
-  subject(:actual) { `ruby main.rb foo.rb` }
+  subject(:actual) { `bin/stray foo.rb` }
 
   let(:expected) { `ruby foo.rb` }
 
