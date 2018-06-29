@@ -1,10 +1,12 @@
 module Stray
   class Environment
     attr_reader :context
+    attr_reader :block
 
-    def initialize(context:)
+    def initialize(context:, block: nil)
       @context = context
       @local_variables = {}
+      @block = block
     end
 
     def assign_local_variable(name, val)
@@ -22,6 +24,18 @@ module Stray
     # @param method [::Stray::Method]
     def add_method(method)
       @context.rb_define_method(method)
+    end
+
+    def new_env
+      ::Stray::Environment.new(context: @context, block: @block)
+    end
+
+    def with_block(block)
+      orig_block = @block
+      @block = block
+      ret = yield self
+      @block = orig_block
+      ret
     end
   end
 end
