@@ -26,3 +26,11 @@ def bar(arg)
 end
 
 bar :bar
+
+def blk
+  yield 1
+end
+
+blk do |arg|
+  puts arg
+end
