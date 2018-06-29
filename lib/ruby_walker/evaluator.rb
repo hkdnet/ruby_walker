@@ -83,8 +83,8 @@ module RubyWalker
         end
       when 'NODE_DEFN'
         mid, scope = node.children
-        _, args, body = scope.children
-        method = ::RubyWalker::Method.new(name: mid, args: args, body: body)
+        args, arity, body = scope.children
+        method = ::RubyWalker::Method.new(name: mid, args: args, arity: arity, body: body)
         environment.add_method(method)
         return ::RubyWalker::Builtin::Symbol.new(mid)
       else
