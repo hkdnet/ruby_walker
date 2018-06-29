@@ -32,6 +32,17 @@ module RubyWalker
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], environment)
+
+        new_env = ::RubyWalker::Environment.new(context: environment.context)
+        method = environment.context.user_defined_methods[mid]
+
+        if method
+          method.arg_hash(args).each do |k, v|
+            new_env.assign_local_variable(k, v)
+          end
+          return evaluate(method.body, new_env)
+        end
+
         if environment.context.rb_respond_to?(mid)
           return environment.context.send(mid, *args)
         else
