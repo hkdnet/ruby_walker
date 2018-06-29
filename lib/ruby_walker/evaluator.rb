@@ -43,7 +43,6 @@ module RubyWalker
         end
       when 'NODE_VCALL'
         mid = node.children.first
-        # TODO environmnet に引数の情報を渡す
         new_env = ::RubyWalker::Environment.new(context: environment.context)
 
         method = environment.context.user_defined_methods[mid]
