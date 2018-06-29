@@ -9,10 +9,6 @@ require_relative 'method'
 
 module RubyWalker
   class Evaluator
-    def initialize
-      @main = ::RubyWalker::Builtin::Object.new
-    end
-
     def evaluate(node, environment)
       case node.type
       when 'NODE_SCOPE'
@@ -36,9 +32,8 @@ module RubyWalker
       when 'NODE_FCALL'
         mid = node.children[0]
         args = evaluate(node.children[1], environment)
-        # TODO self は常に @main とは限らない
-        if @main.rb_respond_to?(mid)
-          return @main.send(mid, *args)
+        if environment.context.rb_respond_to?(mid)
+          return environment.context.send(mid, *args)
         else
           raise "No such method: Kernel##{mid}"
         end
@@ -48,9 +43,15 @@ module RubyWalker
         end
       when 'NODE_VCALL'
         mid = node.children.first
-        method = environment.method(mid)
         # TODO environmnet に引数の情報を渡す
-        return evaluate(method.body, ::RubyWalker::Environment.new)
+        new_env = ::RubyWalker::Environment.new(context: environment.context)
+
+        method = environment.context.user_defined_methods[mid]
+        if method
+          return evaluate(method.body, new_env)
+        else
+          raise "not implemented"
+        end
       when 'NODE_OPCALL'
         unless node.children.size == 3
           raise 'opcall は要素3つだと思ってたけどそうじゃないかも'

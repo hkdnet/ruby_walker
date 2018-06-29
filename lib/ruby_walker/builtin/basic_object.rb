@@ -21,10 +21,23 @@ module RubyWalker
         def instance_methods
           @instance_methods ||= Set.new
         end
+
+        def user_defined_methods
+          @user_defined_methods ||= {}
+        end
       end
 
       def rb_respond_to?(name)
         self.class.instance_methods.include?(name)
+      end
+
+      # @param method [::RubyWalker::Method]
+      def rb_define_method(method)
+        user_defined_methods[method.name] = method
+      end
+
+      def user_defined_methods
+        self.class.user_defined_methods
       end
 
       def call(mid, *args)

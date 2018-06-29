@@ -1,8 +1,10 @@
 module RubyWalker
   class Environment
-    def initialize
+    attr_reader :context
+
+    def initialize(context:)
+      @context = context
       @local_variables = {}
-      @methods = {}
     end
 
     def assign_local_variable(name, val)
@@ -19,11 +21,7 @@ module RubyWalker
 
     # @param method [::RubyWalker::Method]
     def add_method(method)
-      @methods[method.name] = method
-    end
-
-    def method(name)
-      @methods.fetch(name)
+      @context.rb_define_method(method)
     end
   end
 end

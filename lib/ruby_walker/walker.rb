@@ -10,7 +10,10 @@ module RubyWalker
 
     def walk
       ast = RubyVM::AST.parse_file(@file_path)
-      @evaluator.evaluate(ast, ::RubyWalker::Environment.new)
+
+      main = ::RubyWalker::Builtin::Object.new
+      env = ::RubyWalker::Environment.new(context: main)
+      @evaluator.evaluate(ast, env)
     end
   end
 end
