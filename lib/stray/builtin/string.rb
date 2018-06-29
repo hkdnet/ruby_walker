@@ -1,8 +1,8 @@
 require_relative 'object'
 
-module RubyWalker
+module Stray
   module Builtin
-    class String < ::RubyWalker::Builtin::Object
+    class String < ::Stray::Builtin::Object
       attr_reader :val
 
       def initialize(val)
@@ -14,7 +14,7 @@ module RubyWalker
       end
 
       def class
-        ::RubyWalker::Builtin::String
+        ::Stray::Builtin::String
       end
     end
   end

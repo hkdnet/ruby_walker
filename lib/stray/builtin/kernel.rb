@@ -1,14 +1,14 @@
 require_relative 'basic_object'
 
-module RubyWalker
+module Stray
   module Builtin
     module Kernel
       def puts(*args)
         args.each do |e|
-          RubyWalker.world.stdout.write(e.rb_to_s)
-          RubyWalker.world.stdout.write("\n")
+          Stray.world.stdout.write(e.rb_to_s)
+          Stray.world.stdout.write("\n")
         end
-        RubyWalker.world.nil
+        Stray.world.nil
       end
     end
   end

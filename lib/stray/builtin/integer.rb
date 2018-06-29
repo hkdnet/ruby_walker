@@ -1,12 +1,16 @@
 require_relative 'object'
 
-module RubyWalker
+module Stray
   module Builtin
-    class Symbol < ::RubyWalker::Builtin::Object
+    class Integer < ::Stray::Builtin::Object
       attr_reader :val
 
       def initialize(val)
         @val = val
+      end
+
+      def +(other)
+        ::Stray::Builtin::Integer.new(val + other.val)
       end
 
       def rb_to_s
@@ -14,7 +18,7 @@ module RubyWalker
       end
 
       def class
-        ::RubyWalker::Builtin::Symbol
+        ::Stray::Builtin::Integer
       end
     end
   end

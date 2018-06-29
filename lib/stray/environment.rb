@@ -1,4 +1,4 @@
-module RubyWalker
+module Stray
   class Environment
     attr_reader :context
 
@@ -19,7 +19,7 @@ module RubyWalker
       @local_variables.key?(name)
     end
 
-    # @param method [::RubyWalker::Method]
+    # @param method [::Stray::Method]
     def add_method(method)
       @context.rb_define_method(method)
     end

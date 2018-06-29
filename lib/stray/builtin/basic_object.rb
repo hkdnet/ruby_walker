@@ -1,6 +1,6 @@
 require 'set'
 
-module RubyWalker
+module Stray
   module Builtin
     # 不必要なメソッドを定義したくないので BasicObject を継承して自前で定義することにする
     class BasicObject < ::BasicObject
@@ -31,7 +31,7 @@ module RubyWalker
         self.class.instance_methods.include?(name)
       end
 
-      # @param method [::RubyWalker::Method]
+      # @param method [::Stray::Method]
       def rb_define_method(method)
         user_defined_methods[method.name] = method
       end

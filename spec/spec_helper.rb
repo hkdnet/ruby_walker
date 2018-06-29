@@ -99,4 +99,4 @@ RSpec.configure do |config|
 =end
 end
 
-require File.expand_path('../lib/ruby_walker', __dir__)
+require File.expand_path('../lib/stray', __dir__)

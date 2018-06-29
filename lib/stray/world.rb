@@ -1,9 +1,9 @@
-module RubyWalker
+module Stray
   class World
     # 即値
-    TRUE = ::RubyWalker::Builtin::True.new(true)
-    FALSE = ::RubyWalker::Builtin::False.new(false)
-    NIL = ::RubyWalker::Builtin::Nil.new(nil)
+    TRUE = ::Stray::Builtin::True.new(true)
+    FALSE = ::Stray::Builtin::False.new(false)
+    NIL = ::Stray::Builtin::Nil.new(nil)
 
     attr_reader :stdin
     attr_reader :stdout

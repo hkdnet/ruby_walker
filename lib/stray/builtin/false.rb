@@ -1,18 +1,18 @@
 require_relative 'object'
 
-module RubyWalker
+module Stray
   module Builtin
-    class Nil < ::RubyWalker::Builtin::Object
+    class False < ::Stray::Builtin::Object
       def initialize(val)
         @val = val
       end
 
       def class
-        ::RubyWalker::Builtin::Nil
+        ::Stray::Builtin::False
       end
 
       def rb_to_s
-        ''
+        'false'
       end
     end
   end

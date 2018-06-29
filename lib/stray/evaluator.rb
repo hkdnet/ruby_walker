@@ -7,7 +7,7 @@ require_relative 'builtin/string'
 require_relative 'builtin/symbol'
 require_relative 'method'
 
-module RubyWalker
+module Stray
   class Evaluator
     def evaluate(node, environment)
       case node.type
@@ -24,7 +24,7 @@ module RubyWalker
       when 'NODE_IF'
         cond, t, f = node.children
         c = evaluate(cond, environment)
-        unless c == ::RubyWalker.world.false
+        unless c == ::Stray.world.false
           return evaluate(t, environment)
         else
           return evaluate(f, environment)
@@ -33,7 +33,7 @@ module RubyWalker
         mid = node.children[0]
         args = evaluate(node.children[1], environment)
 
-        new_env = ::RubyWalker::Environment.new(context: environment.context)
+        new_env = ::Stray::Environment.new(context: environment.context)
         method = environment.context.user_defined_methods[mid]
 
         if method
@@ -54,7 +54,7 @@ module RubyWalker
         end
       when 'NODE_VCALL'
         mid = node.children.first
-        new_env = ::RubyWalker::Environment.new(context: environment.context)
+        new_env = ::Stray::Environment.new(context: environment.context)
 
         method = environment.context.user_defined_methods[mid]
         if method
@@ -70,13 +70,13 @@ module RubyWalker
       when 'NODE_LIT'
         return to_literal(node.children.first)
       when 'NODE_STR'
-        return ::RubyWalker::Builtin::String.new(node.children.first)
+        return ::Stray::Builtin::String.new(node.children.first)
       when 'NODE_NIL'
-        return ::RubyWalker.world.nil
+        return ::Stray.world.nil
       when 'NODE_TRUE'
-        return ::RubyWalker.world.true
+        return ::Stray.world.true
       when 'NODE_FALSE'
-        return ::RubyWalker.world.false
+        return ::Stray.world.false
       when 'NODE_LASGN'
         name = node.children[0]
         val = evaluate(node.children[1], environment)
@@ -92,9 +92,9 @@ module RubyWalker
       when 'NODE_DEFN'
         mid, scope = node.children
         args, arity, body = scope.children
-        method = ::RubyWalker::Method.new(name: mid, args: args, arity: arity, body: body)
+        method = ::Stray::Method.new(name: mid, args: args, arity: arity, body: body)
         environment.add_method(method)
-        return ::RubyWalker::Builtin::Symbol.new(mid)
+        return ::Stray::Builtin::Symbol.new(mid)
       else
         raise "Unknown node type #{node.type}"
       end
@@ -105,9 +105,9 @@ module RubyWalker
     def to_literal(val)
       case val
       when ::Integer
-        ::RubyWalker::Builtin::Integer.new(val)
+        ::Stray::Builtin::Integer.new(val)
       when ::Symbol
-        ::RubyWalker::Builtin::Symbol.new(val)
+        ::Stray::Builtin::Symbol.new(val)
       else
         raise "Unknown literal type: #{val.inspect}"
       end
