@@ -23,12 +23,12 @@ module RubyWalker
         end
       end
 
-      def respond_to?(name)
+      def rb_respond_to?(name)
         self.class.instance_methods.include?(name)
       end
 
       def call(mid, *args)
-        if respond_to?(mid)
+        if rb_respond_to?(mid)
           self.__send__(mid, *args)
         else
           raise "No such method for #{self.class}##{mid}"
