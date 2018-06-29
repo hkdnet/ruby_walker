@@ -20,5 +20,9 @@ module RubyWalker
     def add_method(name, node)
       @methods[name] = node
     end
+
+    def method(name)
+      @methods.fetch(name)
+    end
   end
 end

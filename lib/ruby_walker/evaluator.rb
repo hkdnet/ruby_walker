@@ -45,6 +45,11 @@ module RubyWalker
         return node.children[0..-2].map do |e|
           evaluate(e, environment)
         end
+      when 'NODE_VCALL'
+        mid = node.children.first
+        method = environment.method(mid)
+        # TODO environmnet に引数の情報を渡す
+        return evaluate(method, ::RubyWalker::Environment.new)
       when 'NODE_OPCALL'
         unless node.children.size == 3
           raise 'opcall は要素3つだと思ってたけどそうじゃないかも'
