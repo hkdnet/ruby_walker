@@ -31,9 +31,9 @@ module Stray
         end
       when 'NODE_FCALL'
         mid = node.children[0]
-        args = evaluate(node.children[1], environment)
+        args = node.children[1] ? evaluate(node.children[1], environment) : []
 
-        new_env = ::Stray::Environment.new(context: environment.context)
+        new_env = environment.new_env
         method = environment.context.user_defined_methods[mid]
 
         if method
@@ -54,7 +54,7 @@ module Stray
         end
       when 'NODE_VCALL'
         mid = node.children.first
-        new_env = ::Stray::Environment.new(context: environment.context)
+        new_env = environment.new_env
 
         method = environment.context.user_defined_methods[mid]
         if method
@@ -67,6 +67,8 @@ module Stray
         mid = node.children[1]
         args = evaluate(node.children[2], environment)
         return recv.call(mid, *args)
+      when 'NODE_DVAR'
+        return environment.get_local_variable(node.children.first)
       when 'NODE_LIT'
         return to_literal(node.children.first)
       when 'NODE_STR'
@@ -89,12 +91,29 @@ module Stray
         else
           raise "No such local variable #{name}"
         end
+      when 'NODE_YIELD'
+        raise "No block given!" unless environment.block
+
+        args = evaluate(node.children.first, environment)
+        arg_names, _arity, body = environment.block.children
+
+        new_env = environment.new_env
+
+        arg_names.zip(args).each do |k, v|
+          new_env.assign_local_variable(k, v)
+        end
+        return evaluate(body, new_env)
       when 'NODE_DEFN'
         mid, scope = node.children
         args, arity, body = scope.children
         method = ::Stray::Method.new(name: mid, args: args, arity: arity, body: body)
         environment.add_method(method)
         return ::Stray::Builtin::Symbol.new(mid)
+      when 'NODE_ITER'
+        method_call, block = node.children
+        return environment.with_block(block) do |new_env|
+          evaluate(method_call, new_env)
+        end
       else
         raise "Unknown node type #{node.type}"
       end
