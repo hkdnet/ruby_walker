@@ -20,3 +20,9 @@ def foo
 end
 
 foo
+
+def bar(arg)
+  puts arg
+end
+
+bar :bar
