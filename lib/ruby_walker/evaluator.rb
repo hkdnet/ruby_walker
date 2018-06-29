@@ -5,6 +5,7 @@ require_relative 'builtin/false'
 require_relative 'builtin/integer'
 require_relative 'builtin/string'
 require_relative 'builtin/symbol'
+require_relative 'method'
 
 module RubyWalker
   class Evaluator
@@ -49,7 +50,7 @@ module RubyWalker
         mid = node.children.first
         method = environment.method(mid)
         # TODO environmnet に引数の情報を渡す
-        return evaluate(method, ::RubyWalker::Environment.new)
+        return evaluate(method.body, ::RubyWalker::Environment.new)
       when 'NODE_OPCALL'
         unless node.children.size == 3
           raise 'opcall は要素3つだと思ってたけどそうじゃないかも'
@@ -81,8 +82,10 @@ module RubyWalker
           raise "No such local variable #{name}"
         end
       when 'NODE_DEFN'
-        mid, body = node.children
-        environment.add_method(mid, body)
+        mid, scope = node.children
+        _, args, body = scope.children
+        method = ::RubyWalker::Method.new(name: mid, args: args, body: body)
+        environment.add_method(method)
         return ::RubyWalker::Builtin::Symbol.new(mid)
       else
         raise "Unknown node type #{node.type}"

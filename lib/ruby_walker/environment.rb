@@ -17,8 +17,9 @@ module RubyWalker
       @local_variables.key?(name)
     end
 
-    def add_method(name, node)
-      @methods[name] = node
+    # @param method [::RubyWalker::Method]
+    def add_method(method)
+      @methods[method.name] = method
     end
 
     def method(name)
