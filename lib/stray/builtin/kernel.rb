@@ -10,6 +10,10 @@ module Stray
         end
         Stray.world.nil
       end
+
+      def exit(status = true)
+        Kernel.__send__(:exit, status)
+      end
     end
   end
 end
