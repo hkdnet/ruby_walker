@@ -64,6 +64,15 @@ module Stray
         mid = node.children[1]
         args = evaluate(node.children[2], environment)
         return recv.call(mid, *args)
+      when 'NODE_CALL'
+        recv = evaluate(node.children[0], environment)
+        mid = node.children[1]
+        if node.children[2]
+          args = evaluate(node.children[2], environment)
+        else
+          args = ::Stray::Builtin::Array.new([])
+        end
+        return recv.call(mid, args)
       when 'NODE_DVAR'
         return environment.get_local_variable(node.children.first)
       when 'NODE_LIT'
