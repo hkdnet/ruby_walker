@@ -30,6 +30,15 @@ module Stray
         else
           return evaluate(f, environment)
         end
+      when 'NODE_CALL', 'NODE_OPCALL'
+        recv = evaluate(node.children[0], environment)
+        mid = node.children[1]
+        if node.children[2]
+          args = evaluate(node.children[2], environment)
+        else
+          args = ::Stray::Builtin::Array.new([])
+        end
+        return recv.call(mid, args)
       when 'NODE_FCALL'
         mid = node.children[0]
         args = node.children[1] ? evaluate(node.children[1], environment) : []
@@ -59,15 +68,6 @@ module Stray
         else
           raise "not implemented"
         end
-      when 'NODE_CALL', 'NODE_OPCALL'
-        recv = evaluate(node.children[0], environment)
-        mid = node.children[1]
-        if node.children[2]
-          args = evaluate(node.children[2], environment)
-        else
-          args = ::Stray::Builtin::Array.new([])
-        end
-        return recv.call(mid, args)
       when 'NODE_DVAR'
         return environment.get_local_variable(node.children.first)
       when 'NODE_LIT'
