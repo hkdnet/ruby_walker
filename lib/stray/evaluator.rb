@@ -5,6 +5,7 @@ require_relative 'builtin/false'
 require_relative 'builtin/integer'
 require_relative 'builtin/string'
 require_relative 'builtin/symbol'
+require_relative 'builtin/array'
 require_relative 'method'
 
 module Stray
@@ -49,9 +50,10 @@ module Stray
           raise "No such method: Kernel##{mid}"
         end
       when 'NODE_ARRAY'
-        return node.children[0..-2].map do |e|
+        val = node.children[0..-2].map do |e|
           evaluate(e, environment)
         end
+        return ::Stray::Builtin::Array.new(val)
       when 'NODE_VCALL'
         mid = node.children.first
         new_env = environment.new_env
