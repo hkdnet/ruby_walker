@@ -5,8 +5,13 @@ module Stray
     module Kernel
       def puts(*args)
         args.each do |e|
-          Stray.world.stdout.write(e.rb_to_s)
-          Stray.world.stdout.write("\n")
+          case e
+          when ::Stray::Builtin::Array
+            e.each { |elm| puts elm }
+          else
+            Stray.world.stdout.write(e.rb_to_s)
+            Stray.world.stdout.write("\n")
+          end
         end
         Stray.world.nil
       end
