@@ -45,7 +45,7 @@ module Stray
         end
 
         if environment.context.rb_respond_to?(mid)
-          return environment.context.send(mid, *args)
+          return environment.context.send(mid, *args.val)
         else
           raise "No such method: Kernel##{mid}"
         end

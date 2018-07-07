@@ -40,9 +40,11 @@ module Stray
         self.class.user_defined_methods
       end
 
-      def call(mid, *args)
+      # @param [Symbol] mid
+      # @param [::Stray::Builtin::Array] args
+      def call(mid, args)
         if rb_respond_to?(mid)
-          self.__send__(mid, *args)
+          self.__send__(mid, *args.val)
         else
           raise "No such method for #{self.class}##{mid}"
         end
