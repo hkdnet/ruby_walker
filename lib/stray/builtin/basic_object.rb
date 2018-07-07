@@ -46,7 +46,7 @@ module Stray
         if rb_respond_to?(mid)
           self.__send__(mid, *args.val)
         else
-          raise "No such method for #{self.class}##{mid}"
+          ::Stray::Builtin::Kernel.send(:raise, "No such method for #{self.class}##{mid}")
         end
       end
     end
