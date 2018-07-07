@@ -68,6 +68,18 @@ module Stray
         else
           raise "not implemented"
         end
+      when 'NODE_QCALL'
+        recv = evaluate(node.children[0], environment)
+        if recv == ::Stray.world.nil
+          return ::Stray.world.nil
+        end
+        mid = node.children[1]
+        if node.children[2]
+          args = evaluate(node.children[2], environment)
+        else
+          args = ::Stray::Builtin::Array.new([])
+        end
+        return recv.call(mid, args)
       when 'NODE_DVAR'
         return environment.get_local_variable(node.children.first)
       when 'NODE_LIT'
