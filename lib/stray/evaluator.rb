@@ -49,11 +49,6 @@ module Stray
         else
           raise "No such method: Kernel##{mid}"
         end
-      when 'NODE_ARRAY'
-        val = node.children[0..-2].map do |e|
-          evaluate(e, environment)
-        end
-        return ::Stray::Builtin::Array.new(val)
       when 'NODE_VCALL'
         mid = node.children.first
         new_env = environment.new_env
@@ -73,6 +68,11 @@ module Stray
         return environment.get_local_variable(node.children.first)
       when 'NODE_LIT'
         return to_literal(node.children.first)
+      when 'NODE_ARRAY'
+        val = node.children[0..-2].map do |e|
+          evaluate(e, environment)
+        end
+        return ::Stray::Builtin::Array.new(val)
       when 'NODE_STR'
         return ::Stray::Builtin::String.new(node.children.first)
       when 'NODE_NIL'
