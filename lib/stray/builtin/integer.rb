@@ -20,6 +20,10 @@ module Stray
       def class
         ::Stray::Builtin::Integer
       end
+
+      def to_s
+        ::Stray::Builtin::String.new(rb_to_s)
+      end
     end
   end
 end
