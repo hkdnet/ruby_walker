@@ -59,12 +59,7 @@ module Stray
         else
           raise "not implemented"
         end
-      when 'NODE_OPCALL'
-        recv = evaluate(node.children[0], environment)
-        mid = node.children[1]
-        args = evaluate(node.children[2], environment)
-        return recv.call(mid, *args)
-      when 'NODE_CALL'
+      when 'NODE_CALL', 'NODE_OPCALL'
         recv = evaluate(node.children[0], environment)
         mid = node.children[1]
         if node.children[2]
