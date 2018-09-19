@@ -1,0 +1,9 @@
+---
+version: "3"
+services:
+  ruby:
+    image: mtsmfm/ruby-trunk
+    volumes:
+      - ".:/app"
+    command: sleep 1000000000000
+    working_dir: /app
