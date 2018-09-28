@@ -132,6 +132,16 @@ module Stray
         return environment.with_block(block) do |new_env|
           evaluate(method_call, new_env)
         end
+      when 'NODE_CDECL'
+        # TODO: nesting
+        const_name, val_node = node.children
+        val = evaluate(val_node, environment)
+        Stray.world.constants[const_name] = val
+        return val
+      when 'NODE_CONST'
+        # TODO: nesting
+        const_name = node.children.first
+        return Stray.world.constants[const_name]
       else
         raise "Unknown node type #{node.type}"
       end
