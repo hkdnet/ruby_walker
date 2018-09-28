@@ -24,5 +24,9 @@ module Stray
     def nil
       NIL
     end
+
+    def constants
+      @constants ||= {}
+    end
   end
 end
