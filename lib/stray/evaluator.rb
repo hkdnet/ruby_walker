@@ -136,6 +136,7 @@ module Stray
         # TODO: nesting
         const_name, val_node = node.children
         val = evaluate(val_node, environment)
+        # TODO: warning on redeclaration
         Stray.world.constants[const_name] = val
         return val
       when 'NODE_CONST'
